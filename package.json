@@ -1,0 +1,41 @@
+{
+  "name": "movie-search",
+  "version": "1.0.0",
+  "description": "https://gipernoob.github.io/movie-search/",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --watch",
+    "build": "webpack --mode production",
+    "lint": "eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GiperNoob/movie-search.git"
+  },
+  "keywords": [],
+  "author": "Nicolai Pribitkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GiperNoob/movie-search/issues"
+  },
+  "homepage": "https://github.com/GiperNoob/movie-search#readme",
+  "dependencies": {
+    "save-dev": "0.0.1-security"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.20.2",
+    "html-webpack-plugin": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
