@@ -53,6 +53,19 @@
   top: 50px;
 }
 
+.loading {
+  background-image: url(../assets/images/g2uA.gif);
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0px -3px;
+  width: 40px;
+  height: 35px;
+  display: block;
+  position: absolute;
+  right: 310px;
+  top: 50px;
+}
+
 .button-submit {
   padding: 7px 10px 7px 9px;
   display: inline-block;
