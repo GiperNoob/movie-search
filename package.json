@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/GiperNoob/movie-search#readme",
   "dependencies": {
-    "save-dev": "0.0.1-security"
+    "save-dev": "0.0.1-security",
+    "swiper": "^5.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

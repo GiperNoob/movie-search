@@ -1,5 +1,7 @@
-import renderPostersToDom from './render-posters';
-import getPoster from './get-poster';
+/* eslint-disable no-unused-vars */
+import Swiper from 'swiper';
+import renderPostersToDom from './posters/render-posters';
+import getPoster from './posters/get-poster';
 
 
 const forms = () => {
@@ -23,7 +25,20 @@ const forms = () => {
 
     getPoster(1, input.value, apikey)
       .then((res) => {
+        document.querySelector('.swiper-wrapper').innerHTML = '';
         renderPostersToDom(res);
+        const mySwiper = new Swiper('.swiper-container', {
+          slidesPerView: 4,
+          spaceBetween: 25,
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
         document.querySelector('.loading').style.display = 'none';
         document.querySelector('.error').innerHTML = '';
       })

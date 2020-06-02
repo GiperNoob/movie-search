@@ -1,4 +1,4 @@
-import Posters from '../Classes/Poster';
+import Posters from '../../Classes/Poster';
 
 function generatePosters(data) {
   const posterList = [];
@@ -7,7 +7,8 @@ function generatePosters(data) {
 }
 
 export default function renderPostersToDom(data) {
+  const sliderContainer = document.querySelector('.swiper-wrapper');
   generatePosters(data).forEach((poster) => {
-    document.body.append(poster.generatePoster());
+    sliderContainer.append(poster.generatePoster());
   });
 }

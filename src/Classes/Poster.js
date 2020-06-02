@@ -7,22 +7,22 @@ export default class Posters {
 
   generatePoster() {
     const containerPosters = document.createElement('div');
-    containerPosters.className = 'container';
+    containerPosters.className = 'swiper-slide card';
     let template = '';
     if (this.title) {
       template += '<div>';
-      template += `<span>${this.title}</span>`;
+      template += `<span class="title-poster">${this.title}</span>`;
       template += '</div>';
     }
 
     if (this.poster) {
-      template += '<div>';
+      template += '<div class="poster">';
       template += `<img src=${this.poster}>`;
       template += '</div>';
     }
 
     if (this.year) {
-      template += '<div>';
+      template += '<div class="year">';
       template += `<span>${this.year}</span>`;
       template += '</div>';
     }
