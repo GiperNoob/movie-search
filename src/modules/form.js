@@ -4,7 +4,7 @@ import renderPostersToDom from './posters/render-posters';
 import getPoster from './posters/get-poster';
 
 
-const forms = () => {
+const forms = (count) => {
   const form = document.querySelector('form');
   const input = document.querySelector('input');
   const apikey = '2f43328c';
@@ -23,7 +23,7 @@ const forms = () => {
     statusLoading.style.display = 'none';
     form.append(statusLoading);
 
-    getPoster(1, input.value, apikey)
+    getPoster(count, input.value, apikey)
       .then((res) => {
         document.querySelector('.swiper-wrapper').innerHTML = '';
         renderPostersToDom(res);
