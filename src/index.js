@@ -1,16 +1,24 @@
-/* eslint-disable no-unused-vars */
 import './styles/clear-style.css';
 import './styles/style.css';
 import './modules/swiper/swiper.min.css';
 import './modules/swiper/swiper.css';
 import Swiper from 'swiper';
-import forms from './modules/form';
-import startPage from './modules/start-page';
+import getPoster from './modules/posters/get-poster';
+import renderPostersToDom from './modules/posters/render-posters';
 
-let count = 1;
-let countPoster = 4;
 
-const mySwiper = new Swiper('.swiper-container', {
+const form = document.querySelector('form');
+const input = document.querySelector('input');
+const apikey = '2f43328c';
+let page = 1;
+let currentWord = 'dream';
+let countPoster = 6;
+
+const clearInput = () => {
+  input.value = '';
+};
+
+let mySwiper = new Swiper('.swiper-container', {
   slidesPerView: 4,
   spaceBetween: 25,
   pagination: {
@@ -27,52 +35,102 @@ const mySwiper = new Swiper('.swiper-container', {
 });
 
 function nextPage() {
-  const slider = document.querySelector('.slider-container');
-  const posters = slider.querySelectorAll('.swiper-slide');
   const options = {
     root: null,
     rootMargin: '0px',
     threshold: 1.0,
   };
 
+  // eslint-disable-next-line no-unused-vars
   function handleImg(myImg, observer) {
     myImg.forEach((element) => {
       window.console.log(element.intersectionRatio);
-      if (element.intersectionRatio === 1) {
-        count += 1;
-        window.console.log(count);
+      if (element.intersectionRatio > 0.7) {
+        window.console.log('work');
+        page += 1;
         countPoster += 10;
-        window.console.log(countPoster);
-        startPage(count)
+        getPoster(page, currentWord, apikey)
+          .then((res) => {
+            renderPostersToDom(res);
+          })
           .then(() => {
             mySwiper.update();
-          })
-          .catch(() => {
-            window.console.log('error');
           });
       }
     });
   }
 
+  const slider = document.querySelector('.swiper-wrapper');
+  const posters = slider.querySelectorAll('.swiper-slide');
+
   const observer = new IntersectionObserver(handleImg, options);
   const target = posters[countPoster];
-  observer.observe(target);
   window.console.log(target);
+  observer.observe(target);
 }
 
-
-window.onload = () => {
-  forms(count);
-  startPage(count)
-    .then(() => {
-      mySwiper.update();
-    })
-    .then(() => {
-      document.querySelector('.slider-container').addEventListener('click', () => {
-        nextPage();
-      });
-    })
-    .catch(() => {
-      window.console.log('error');
+getPoster(page, currentWord, apikey)
+  .then((res) => {
+    input.focus();
+    renderPostersToDom(res);
+  })
+  .then(() => {
+    mySwiper.update();
+  })
+  .then(() => {
+    document.querySelector('.slider-container').addEventListener('click', () => {
+      nextPage();
     });
-};
+  })
+  .then(() => {
+    form.addEventListener('submit', (event) => {
+      countPoster = 6;
+      page = 1;
+      event.preventDefault();
+
+      const statusLoading = document.createElement('span');
+      statusLoading.classList.add('loading');
+      statusLoading.style.display = 'block';
+
+      currentWord = input.value;
+
+      getPoster(page, currentWord, apikey)
+        .then((res) => {
+          document.querySelector('.swiper-wrapper').innerHTML = '';
+
+          form.append(statusLoading);
+
+          renderPostersToDom(res);
+        })
+        .then(() => {
+          mySwiper.destroy();
+          mySwiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            spaceBetween: 25,
+            pagination: {
+              el: '.swiper-pagination',
+              type: 'bullets',
+              clickable: true,
+              dynamicBullets: true,
+              dynamicMainBullets: 8,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+          });
+
+          clearInput();
+
+          statusLoading.remove();
+          document.querySelector('.error').innerHTML = '';
+        })
+        .catch(() => {
+          document.querySelector('.error').innerHTML = `by request "${input.value}" nothing found`;
+          statusLoading.remove();
+        });
+    });
+  })
+  .catch(() => {
+    document.querySelector('.error').innerHTML = 'something went wrong, try again';
+  });
