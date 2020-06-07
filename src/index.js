@@ -19,18 +19,46 @@ const clearInput = () => {
 };
 
 let mySwiper = new Swiper('.swiper-container', {
-  slidesPerView: 4,
+  slidesPerView: 1,
   spaceBetween: 25,
-  pagination: {
-    el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true,
-    dynamicBullets: true,
-    dynamicMainBullets: 8,
-  },
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 25,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 2,
+      },
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 25,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 2,
+      },
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 25,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 8,
+      },
+    },
   },
 });
 
@@ -134,3 +162,8 @@ getPoster(page, currentWord, apikey)
   .catch(() => {
     document.querySelector('.error').innerHTML = 'something went wrong, try again';
   });
+
+document.querySelector('.clear-search').addEventListener('click', () => {
+  input.value = '';
+  input.focus();
+});
