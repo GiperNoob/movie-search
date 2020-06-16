@@ -72,9 +72,7 @@ function nextPage() {
   // eslint-disable-next-line no-unused-vars
   function handleImg(myImg, observer) {
     myImg.forEach((element) => {
-      window.console.log(element.intersectionRatio);
       if (element.intersectionRatio > 0.7) {
-        window.console.log('work');
         page += 1;
         countPoster += 10;
         getPoster(page, currentWord, apikey)
@@ -93,7 +91,6 @@ function nextPage() {
 
   const observer = new IntersectionObserver(handleImg, options);
   const target = posters[countPoster];
-  window.console.log(target);
   observer.observe(target);
 }
 
