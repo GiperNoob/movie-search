@@ -22,7 +22,7 @@
   "homepage": "https://github.com/GiperNoob/movie-search#readme",
   "dependencies": {
     "save-dev": "0.0.1-security",
-    "swiper": "^5.4.1",
+    "swiper": "^6.5.1",
     "websocket-extensions": "^0.1.4"
   },
   "devDependencies": {
